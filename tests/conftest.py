@@ -1,12 +1,17 @@
 """Top-level pytest configuration.
 
-Hypothesis profiles, shared fixtures, and import gating for optional adapters land
-here as Phase 1+ ships. For Phase 0 we only register the hypothesis ``ci`` profile so
-``pytest --hypothesis-profile=ci`` already works in CI before the strategies module
-exists.
+Hypothesis profiles, shared fixtures, and import gating for optional adapters
+live here.
+
+The active profile is selected by the ``HYPOTHESIS_PROFILE`` environment
+variable (``dev`` by default, ``ci`` in CI). The ``ci`` profile runs 500
+examples per property — about ten times the dev volume — so it can surface
+counter-examples the dev profile misses without slowing local iteration.
 """
 
 from __future__ import annotations
+
+import os
 
 from hypothesis import HealthCheck, settings
 
@@ -22,4 +27,6 @@ settings.register_profile(
     deadline=None,
     suppress_health_check=[HealthCheck.too_slow],
 )
-settings.load_profile("dev")
+
+_active = os.environ.get("HYPOTHESIS_PROFILE", "dev")
+settings.load_profile(_active)

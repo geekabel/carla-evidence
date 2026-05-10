@@ -76,6 +76,33 @@ class TestDispatchEdgeCases:
         with pytest.raises(ValueError):
             pcr6.combine_many([])
 
+    def test_default_combine_many_left_fold(self, theta: Frame) -> None:
+        """Default ``CombinationRule.combine_many`` left-folds via ``combine``.
+
+        Exercised through ``dempster.combine_many`` which doesn't override the base.
+        """
+        from carla_evidence.combination import dempster
+
+        m_vac = MassFunction.vacuous(theta)
+        m_a = MassFunction(theta, {("a",): 0.5, theta.omega: 0.5})
+        m_b = MassFunction(theta, {("b",): 0.5, theta.omega: 0.5})
+        # Three-source dispatch through default left-fold.
+        result = dempster.combine_many([m_vac, m_a, m_b])
+        # Equivalent to dempster(dempster(m_vac, m_a), m_b) since vacuous is neutral.
+        expected = dempster(m_a, m_b)
+        assert result.is_close_to(expected, atol=1e-9)
+
+    def test_callable_with_single_mass_arg(self) -> None:
+        """``rule(m)`` returns ``m`` directly (no combine needed)."""
+        from carla_evidence.combination import dempster
+
+        m = MassFunction.vacuous(Frame.of("a", "b"))
+        assert dempster(m) is m
+
+    def test_mean_combine_many_empty_raises(self) -> None:
+        with pytest.raises(ValueError):
+            mean.combine_many([])
+
 
 class TestAbstractness:
     def test_cannot_instantiate_abstract_directly(self) -> None:

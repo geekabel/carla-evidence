@@ -177,6 +177,12 @@ class TestPCR5:
         # so PCR5 == Dempster (which = conjunctive when K=0).
         assert pcr5(m_a, m_b).is_close_to(dempster(m_a, m_b))
 
+    def test_combine_many_two_source_uses_super(self, m1: MassFunction, m2: MassFunction) -> None:
+        """``pcr5.combine_many([m1, m2])`` falls through to ``super().combine_many``
+        which left-folds via the binary ``combine``."""
+        out = pcr5.combine_many([m1, m2])
+        assert out.is_close_to(pcr5(m1, m2))
+
 
 # ---------------------------------------------------------------------------
 # PCR6
@@ -205,6 +211,14 @@ class TestPCR6:
 
     def test_combine_many_singleton_returns_input(self, m1: MassFunction) -> None:
         assert pcr6([m1]) is m1
+
+    def test_combine_many_two_source_delegates_to_pcr5(
+        self, m1: MassFunction, m2: MassFunction
+    ) -> None:
+        """``pcr6.combine_many([m1, m2])`` short-circuits to the binary ``combine``
+        which delegates to PCR5 (Martin-Osswald 2006 §III)."""
+        out = pcr6.combine_many([m1, m2])
+        assert out.is_close_to(pcr5(m1, m2))
 
 
 # ---------------------------------------------------------------------------
