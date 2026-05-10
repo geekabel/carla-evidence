@@ -66,6 +66,9 @@ jobs:
           pip install -e ".[dev]"
 
       - name: pytest (unit + property + regression)
+        # shell: bash forces Git Bash on Windows runners; the default PowerShell
+        # rejects the `\` line-continuation syntax used below.
+        shell: bash
         run: |
           pytest tests/unit tests/property tests/regression \
             --cov=carla_evidence \
