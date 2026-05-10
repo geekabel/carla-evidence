@@ -322,7 +322,7 @@ class MassFunction:
         ``out[0] = 0`` by convention.
         """
         n = len(self.frame)
-        bel = self.to_dense().copy()
+        bel: npt.NDArray[np.float64] = self.to_dense().copy()
         for i in range(n):
             bit = 1 << i
             # Vectorised: every mask whose bit i is set absorbs mass from
@@ -332,10 +332,10 @@ class MassFunction:
             bel[target] += bel[target ^ bit]
         # bel now contains the zeta transform: sum_{B subset-or-equal A} m(B).
         # Bel excludes m(empty-set), so subtract it everywhere and zero bel(empty-set).
-        m_empty = bel[0]
+        m_empty = float(bel[0])
         bel -= m_empty
         bel[0] = 0.0
-        return bel
+        return np.asarray(bel, dtype=np.float64)
 
     def to_pl_vector(self) -> npt.NDArray[np.float64]:
         """Vectorised Pl: ``out[A] = Pl(A)`` for every bitmask ``A``.
@@ -357,13 +357,13 @@ class MassFunction:
         Computed via a reverse zeta transform in :math:`O(n \\, 2^n)`.
         """
         n = len(self.frame)
-        q = self.to_dense().copy()
+        q: npt.NDArray[np.float64] = self.to_dense().copy()
         for i in range(n):
             bit = 1 << i
             indices = np.arange(self.frame.size)
             target = indices[(indices & bit) == 0]
             q[target] += q[target | bit]
-        return q
+        return np.asarray(q, dtype=np.float64)
 
     # ---- introspection ---------------------------------------------------
 
