@@ -14,6 +14,52 @@ this changelog is generated from them.
 
 ### Added
 
+- **Combination layer v0.2.0 (Phase 2)** — eight rules (`feat(combination)`):
+  - `conjunctive` (Smets 1990) — TBM-mode, retains conflict on `empty-set`.
+  - `dempster` (Shafer 1976) — normalised by `1/(1-K)`; raises
+    `TotalConflictError` if `K = 1`.
+  - `disjunctive` (Dubois-Prade 1986) — least-committal fusion via union.
+  - `yager` (Yager 1987) — conflict redirected to `Theta`.
+  - `dubois_prade` (Dubois-Prade 1988) — conflict redirected to `B union C`.
+  - `pcr5` (Smarandache-Dezert 2005) — proportional conflict redistribution
+    for two sources; refuses three-or-more (PCR5 is not associative).
+  - `pcr6` (Martin-Osswald 2006) — N-source generalisation of PCR5; binary
+    case delegates to PCR5.
+  - `mean` (Murphy 2000) — arithmetic mean baseline.
+- All rules expose a callable instance (`dempster(m1, m2)`,
+  `pcr6([m1, m2, m3])`) plus the explicit `combine` / `combine_many`
+  API. The dispatcher accepts binary, iterable, and variadic forms.
+- Sparse kernel (`combination/_sparse_kernel.py`): a single
+  `cartesian_combine` shared by the seven cartesian-product rules,
+  parameterised by a `ConflictRouter` Protocol. Each rule body is ~30 lines
+  describing its conflict policy.
+- Dense reference impls (`tests/_references/dense_combination.py`):
+  literal `O(2^|Theta| × 2^|Theta|)` translations of every formula, used as
+  oracles by hypothesis property tests asserting
+  `sparse(m1, m2) ≈ dense(m1, m2)` to `atol=1e-12`.
+- **Tutorial 2** (`examples/02_zadeh_paradox.ipynb`) walks through Zadeh's
+  two-doctors paradox and demonstrates how each rule handles severe
+  conflict.
+- **Concept primer** (`docs/source/concepts/combination_rules.md`) with the
+  rules table, conflict-routing trade-offs, and three traps to avoid.
+- **Benchmark suite** (`benchmarks/bench_combination.py`) measured locally:
+  - Dempster `|Theta|=4`: **~107k ops/s** (target ≥10⁵ ✓)
+  - PCR6 binary `|Theta|=8`: **~11.3k ops/s** (target ≥10⁴ ✓)
+  - Other binary rules on `|Theta|=4`: 100–164k ops/s.
+
+### Notes
+
+- Cautious and bold rules (Denoeux 2008) are deferred to **v0.2.1**: they
+  require the canonical decomposition of a non-dogmatic BBA into its weight
+  function (Möbius / log-Möbius transform of the commonality vector,
+  Kennes 1992 algorithm). The placeholder `combination/_dense_kernel.py`
+  reserves the namespace.
+- DSmT hyperpowerset support remains deferred. PCR5 and PCR6 ship for the
+  Shafer/TBM modes only (the standard powerset); on those frames they are
+  already mathematically well-defined.
+- ABC `CombinationRule` exposes `combine`, `combine_many`, and a smart
+  `__call__` that routes binary, iterable, and variadic invocations.
+
 - **Core layer (Phase 1)** — `Frame` and `MassFunction` (`feat(core)`):
   - `Frame`: frozen, hashable, ordered tuple of distinct hypotheses with
     cached element-name ↔ bitmask translation. Constructors `Frame(...)`

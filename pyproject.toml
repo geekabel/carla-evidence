@@ -96,10 +96,18 @@ extend-exclude = ["src/carla_evidence/_version.py", "docs/source/conf.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
-ignore = []
+# RUF002/RUF003 flag mathematical Unicode symbols (∅, ∪, ∩, ×, ⊕, …) inside
+# docstrings as "ambiguous". They are intentional and match the cited
+# literature; this codebase prioritises rigorous notation over ASCII-only.
+ignore = ["RUF002", "RUF003"]
 
 [tool.ruff.lint.per-file-ignores]
+# Math-heavy modules use uppercase names for sets (B, C) and constants
+# (K, P, S) — Shafer 1976 / Smets 1990 / Smarandache-Dezert 2005 conventions.
+"src/carla_evidence/combination/*.py" = ["N803", "N806"]
 "tests/**/*.py" = ["N802", "N803", "N806"]
+"tests/_references/*.py" = ["N802", "N803", "N806"]
+"benchmarks/**/*.py" = ["N802", "N803", "N806"]
 "**/__init__.py" = ["F401"]
 
 [tool.ruff.format]

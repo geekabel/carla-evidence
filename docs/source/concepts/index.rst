@@ -8,3 +8,4 @@ Primer on belief functions: Shafer (1976), Smets's TBM (1990), and DSmT
    :maxdepth: 1
 
    mass_functions
+   combination_rules
