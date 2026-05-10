@@ -31,6 +31,7 @@ repos:
         additional_dependencies:
           - "numpy>=1.24"
           - "pydantic>=2.0"
+          - "hypothesis>=6.0"
         files: ^src/
         args: [--config-file=pyproject.toml]
 
@@ -44,4 +45,14 @@ repos:
     hooks:
       - id: codespell
         args: [--ignore-words=.codespell-ignore]
-        exclude: ^(CHANGELOG\.md|.*\.lock|docs/source/_static/.*)$
+        # CLAUDE.md and the architecture doc are written in French; codespell's
+        # English-typos dictionary flags many of those words. Stick to English-only
+        # files for this hook.
+        exclude: |
+          (?x)^(
+            CHANGELOG\.md|
+            CLAUDE\.md|
+            carla-evidence-architecture\.md|
+            .*\.lock|
+            docs/source/_static/.*
+          )$

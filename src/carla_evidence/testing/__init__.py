@@ -1,7 +1,24 @@
 """Hypothesis strategies for property-based testing of evidential code.
 
-Lands in v0.1.0 alongside :class:`MassFunction`. The planned public surface includes
-``mass_functions(frame_size=...)``, ``frames(min_size=..., max_size=...)``,
-``categorical_bbas(...)``, and ``bayesian_bbas(...)`` so downstream users (and our
-own tests) can write property tests against canonical strategies.
+Public surface (lands in v0.1.0): ``mass_functions``, ``frames``, ``frame_names``,
+``categorical_bbas``, ``bayesian_bbas``, ``vacuous_bbas``. See
+:mod:`carla_evidence.testing.strategies` for full docstrings.
 """
+
+from carla_evidence.testing.strategies import (
+    bayesian_bbas,
+    categorical_bbas,
+    frame_names,
+    frames,
+    mass_functions,
+    vacuous_bbas,
+)
+
+__all__ = [
+    "bayesian_bbas",
+    "categorical_bbas",
+    "frame_names",
+    "frames",
+    "mass_functions",
+    "vacuous_bbas",
+]

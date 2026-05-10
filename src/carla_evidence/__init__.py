@@ -16,9 +16,34 @@ extras (see ``pyproject.toml``).
 
 from __future__ import annotations
 
+from carla_evidence.core import (
+    EvidenceError,
+    Frame,
+    FrameError,
+    FrameMismatchError,
+    InvalidMassError,
+    MassFunction,
+    Mode,
+    ModeError,
+    SubsetSpec,
+    TotalConflictError,
+)
+
 try:
     from carla_evidence._version import version as __version__
 except ImportError:
     __version__ = "0.0.0.dev0"
 
-__all__ = ["__version__"]
+__all__ = [
+    "EvidenceError",
+    "Frame",
+    "FrameError",
+    "FrameMismatchError",
+    "InvalidMassError",
+    "MassFunction",
+    "Mode",
+    "ModeError",
+    "SubsetSpec",
+    "TotalConflictError",
+    "__version__",
+]
