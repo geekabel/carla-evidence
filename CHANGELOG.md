@@ -12,6 +12,15 @@ this changelog is generated from them.
 
 ## [Unreleased]
 
+(No entries yet — open a new section below this one once v0.3.0 work starts.)
+
+## [0.2.0] — 2026-05-10
+
+- Zenodo concept DOI: `10.5281/zenodo.20114179`
+- Zenodo v0.2.0 DOI:  `10.5281/zenodo.20114180`
+- GitHub release:     <https://github.com/geekabel/carla-evidence/releases/tag/v0.2.0>
+- Test PyPI:          <https://test.pypi.org/project/carla-evidence/0.2.0/>
+
 ### Added
 
 - **Combination layer v0.2.0 (Phase 2)** — eight rules (`feat(combination)`):
@@ -110,4 +119,5 @@ this changelog is generated from them.
   workflow, Sphinx + Read the Docs configuration, empty but importable
   `src/carla_evidence/` package tree, `tests/` skeleton with markers.
 
-[Unreleased]: https://github.com/geekabel/carla-evidence/compare/HEAD...HEAD
+[Unreleased]: https://github.com/geekabel/carla-evidence/compare/v0.2.0...HEAD
+[0.2.0]:      https://github.com/geekabel/carla-evidence/releases/tag/v0.2.0

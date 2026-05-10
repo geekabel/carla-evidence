@@ -22,13 +22,17 @@ keywords:
   - carla
   - v2x
 license: BSD-3-Clause
-version: 0.0.0.dev0
+version: 0.2.0
 date-released: "2026-05-10"
-# DOI placeholder — update on first Zenodo archive (cf. release.yml)
 identifiers:
+  # Concept DOI — version-agnostic; use this when citing the project as a whole.
   - type: doi
-    value: "10.5281/zenodo.PLACEHOLDER"
-    description: "Zenodo concept DOI (placeholder; replace at v0.1.0)"
+    value: "10.5281/zenodo.20114179"
+    description: "Zenodo concept DOI (all versions)"
+  # Version-specific DOI for v0.2.0 — use this when reproducibility matters.
+  - type: doi
+    value: "10.5281/zenodo.20114180"
+    description: "Zenodo v0.2.0 DOI"
 preferred-citation:
   type: software
   title: "carla-evidence: Evidential sensor fusion for autonomous driving"
@@ -36,4 +40,6 @@ preferred-citation:
     - family-names: "K."
       given-names: "Godwin"
   year: 2026
+  version: "0.2.0"
+  doi: "10.5281/zenodo.20114179"
   url: "https://github.com/geekabel/carla-evidence"
