@@ -1,0 +1,157 @@
+[build-system]
+requires = ["setuptools>=68", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carla-evidence"
+description = "Evidential (Dempster-Shafer / DSmT) sensor fusion for autonomous driving"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
+authors = [{ name = "Godwin K.", email = "koffigodwin96@gmail.com" }]
+maintainers = [{ name = "Godwin K.", email = "koffigodwin96@gmail.com" }]
+keywords = [
+    "dempster-shafer",
+    "dsmt",
+    "evidence-theory",
+    "belief-functions",
+    "sensor-fusion",
+    "autonomous-driving",
+    "carla",
+    "v2x",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Typing :: Typed",
+]
+dynamic = ["version"]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+ml = ["torch>=2.0"]
+carla = ["carla>=0.9.15"]
+ros = []
+viz = ["matplotlib>=3.7", "plotly>=5.0"]
+docs = [
+    "sphinx>=7.0",
+    "myst-parser>=2.0",
+    "sphinx-rtd-theme>=2.0",
+    "sphinx-autodoc-typehints>=2.0",
+    "sphinx-copybutton>=0.5",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-xdist>=3.0",
+    "pytest-benchmark>=4.0",
+    "hypothesis>=6.0",
+    "ruff>=0.6",
+    "black>=24.0",
+    "mypy>=1.10",
+    "pre-commit>=3.5",
+    "build>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/geekabel/carla-evidence"
+Documentation = "https://carla-evidence.readthedocs.io"
+Repository = "https://github.com/geekabel/carla-evidence"
+Issues = "https://github.com/geekabel/carla-evidence/issues"
+Changelog = "https://github.com/geekabel/carla-evidence/blob/main/CHANGELOG.md"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+carla_evidence = ["py.typed"]
+
+[tool.setuptools_scm]
+version_file = "src/carla_evidence/_version.py"
+fallback_version = "0.0.0.dev0"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+extend-exclude = ["src/carla_evidence/_version.py", "docs/source/conf.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["N802", "N803", "N806"]
+"**/__init__.py" = ["F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+files = ["src/carla_evidence"]
+exclude = ['src/carla_evidence/_version\.py$']
+
+[[tool.mypy.overrides]]
+module = [
+    "scipy.*",
+    "carla.*",
+    "rclpy.*",
+    "matplotlib.*",
+    "plotly.*",
+    "torch.*",
+    "opencda.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --strict-config"
+testpaths = ["tests"]
+markers = [
+    "slow: tests that take >1s",
+    "carla: requires CARLA installation",
+    "ros: requires ROS2",
+    "ml: requires torch",
+]
+
+[tool.coverage.run]
+source = ["src/carla_evidence"]
+branch = true
+omit = ["src/carla_evidence/_version.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true

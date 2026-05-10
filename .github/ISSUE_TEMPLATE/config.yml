@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussion / question
+    url: https://github.com/geekabel/carla-evidence/discussions
+    about: For methodology questions, theory clarifications, or open-ended ideas.
+  - name: Security report
+    url: mailto:koffigodwin96@gmail.com
+    about: Email for security issues — do not file a public issue.

@@ -1,0 +1,63 @@
+name: Feature request
+description: Propose a new combination rule, decision transform, metric, or adapter.
+title: "feat: <short description>"
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please review the roadmap (`carla-evidence-architecture.md` §7) before opening,
+        especially for combination rules, discounting, decision, or metrics. Out-of-phase
+        proposals are welcome but may be deferred.
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why does this feature need to exist? Which use case does it unlock?
+    validations:
+      required: true
+
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      description: |
+        Sketch the public API (function/class signatures). Stay consistent with the
+        existing naming conventions (snake_case for functions, PascalCase for classes,
+        verbs `combine`/`discount`/`decide`).
+      render: python
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: Academic reference(s)
+      description: |
+        Papers and books. Mandatory for combination rules, discounting, decision,
+        metrics, BBA construction.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Why not an existing rule, transform, or metric?
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Roadmap phase
+      options:
+        - Phase 1 — Core
+        - Phase 2 — Combination
+        - Phase 3 — Decision & metrics
+        - Phase 4 — Discounting
+        - Phase 5 — Construction
+        - Phase 6 — CARLA adapter
+        - Phase 7 — ROS 2 adapter
+        - Phase 8 — Visualization
+        - Phase 9 — Benchmarks
+        - Outside roadmap (please justify)
+    validations:
+      required: true

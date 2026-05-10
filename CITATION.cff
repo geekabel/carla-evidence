@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: "carla-evidence: Evidential sensor fusion for autonomous driving"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "K."
+    given-names: "Godwin"
+    email: "koffigodwin96@gmail.com"
+repository-code: "https://github.com/geekabel/carla-evidence"
+url: "https://carla-evidence.readthedocs.io"
+abstract: >-
+  Python library for evidential (Dempster-Shafer / DSmT) sensor fusion applied to
+  autonomous-vehicle perception, with first-class CARLA and ROS 2 adapters,
+  reproducible benchmarks, and rigorous mathematical foundations.
+keywords:
+  - dempster-shafer
+  - dsmt
+  - evidence-theory
+  - belief-functions
+  - sensor-fusion
+  - autonomous-driving
+  - carla
+  - v2x
+license: BSD-3-Clause
+version: 0.0.0.dev0
+date-released: "2026-05-10"
+# DOI placeholder — update on first Zenodo archive (cf. release.yml)
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.PLACEHOLDER"
+    description: "Zenodo concept DOI (placeholder; replace at v0.1.0)"
+preferred-citation:
+  type: software
+  title: "carla-evidence: Evidential sensor fusion for autonomous driving"
+  authors:
+    - family-names: "K."
+      given-names: "Godwin"
+  year: 2026
+  url: "https://github.com/geekabel/carla-evidence"
